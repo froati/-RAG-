@@ -24,7 +24,12 @@ api_key = os.getenv("OPENAI_API_KEY")
 def process_pdf():
     loader = PyPDFLoader("data/2024_KB_부동산_보고서_최종.pdf")
     documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size = 1000, chunk_overlap=200)
+    
+    # 인코딩 에러를 일으키는 문자를 강제로 처리
+    for doc in documents:
+        doc.page_content = doc.page_content.encode('utf-8', errors='ignore').decode('utf-8')
+        
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     return text_splitter.split_documents(documents)
 
 # 벡터 스토어 초기화
