@@ -1,4 +1,5 @@
 import os
+import io
 import streamlit as st
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader
@@ -10,6 +11,10 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, RunnableWithMessageHistory
 from langchain_classic.memory import ChatMessageHistory
+
+# 시스템의 표준 출력을 utf-8로 강제 설정
+sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding='utf-8')
 
 # 환경 변수 로드
 load_dotenv('data/.env')
