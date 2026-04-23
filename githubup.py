@@ -22,7 +22,7 @@ def process_pdf():
     return text_splitter.split_documents(documents)
 
 @st.cache_resource
-def get_vectorstore(mode="chroma"):
+def get_vectorstore(mode=""):
     embeddings = OpenAIEmbeddings(openai_api_key=api_key)
     if mode == "chroma":
         persist_db = './chroma_db'
