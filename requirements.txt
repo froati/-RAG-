@@ -7,3 +7,4 @@ faiss-cpu
 python-dotenv
 pypdf
 chromadb
+protobuf<=3.20.3
