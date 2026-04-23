@@ -22,7 +22,7 @@ def process_pdf():
     return text_splitter.split_documents(documents)
 
 @st.cache_resource
-def get_vectorstore(mode=""):
+def get_vectorstore(mode="chroma"):
     embeddings = OpenAIEmbeddings(openai_api_key=api_key)
     if mode == "chroma":
         persist_db = './chroma_db'
@@ -48,7 +48,7 @@ def limit_memory(input_dict):
 
 @st.cache_resource
 def initialize_chain():
-    vectorstore = get_vectorstore(mode="chroma") # 또는 "faiss"
+    vectorstore = get_vectorstore(mode="faiss") # 또는 "faiss"
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
     
     template = """당신은 KB 부동산 보고서 전문가입니다. 
